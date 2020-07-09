@@ -1,6 +1,6 @@
 {
   "name": "pin-latest",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Pin Latest",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
