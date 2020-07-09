@@ -5,6 +5,8 @@ import checkForUpdate from 'update-check';
 import packageJson from '../package.json';
 import PinLatest from './pin-latest';
 
+export default PinLatest;
+
 const args = arg({
     '--help': Boolean,
     '--version': Boolean,

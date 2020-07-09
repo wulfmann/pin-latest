@@ -5,9 +5,15 @@
         "strict": true,
         "resolveJsonModule": true,
         "esModuleInterop": true,
-        "skipLibCheck": false
+        "skipLibCheck": false,
+        "typeRoots": [
+            "./node_modules/@types"
+        ]
     },
     "include": [
-        "lib"
+        "lib/**/*.ts"
+    ],
+    "exclude": [
+        "node_modules"
     ]
 }

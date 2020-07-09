@@ -53,7 +53,7 @@ $ cat package.json
 }
 ```
 
-## Reference
+## Usage
 
 ```text
 $ pin-latest --help
@@ -91,3 +91,21 @@ $ pin-latest --exact .
 ### Write
 
 The `--write` flag decides whether or not changes should be written to disk. If `--write` is not passed, the modified file is sent to `stdout`.
+
+## Programmatic Usage
+
+You can also import the main `PinLatest` class to use pin-latest programmatically:
+
+```typescript
+// my-script.ts
+import PinLatest from 'pin-latest';
+
+(async function() {
+    await PinLatest({
+        '.',
+        exact: false,
+        debug: false,
+        write: false
+    });
+}())
+```
