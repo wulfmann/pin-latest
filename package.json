@@ -21,7 +21,7 @@
     "typescript": "^3.9.6"
   },
   "scripts": {
-    "dev": "ncc build ./index.ts -w -o dist/",
+    "dev": "ncc build ./lib/index.ts -w -o dist/",
     "prerelease": "rimraf ./dist/",
     "build": "ncc build ./lib/index.ts -o ./dist/ --minify --no-cache --no-source-map-register",
     "format": "prettier 'lib/**/*.ts' --write",
@@ -47,5 +47,9 @@
       "plugin:@typescript-eslint/eslint-recommended",
       "plugin:@typescript-eslint/recommended"
     ]
+  },
+  "dependencies": {
+    "arg": "^4.1.3",
+    "update-check": "^1.5.4"
   }
 }
