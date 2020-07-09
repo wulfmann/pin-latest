@@ -50,6 +50,7 @@
   },
   "dependencies": {
     "arg": "^4.1.3",
+    "package-json": "^6.5.0",
     "update-check": "^1.5.4"
   }
 }
