@@ -55,7 +55,9 @@ async function notifyUpdate(): Promise<void> {
             );
         }
         process.exit();
-    } catch {} // ignore error
+    } catch {
+        return;
+    } // ignore error
 }
 
 async function run() {

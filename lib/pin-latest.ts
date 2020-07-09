@@ -13,15 +13,27 @@ export interface PinLatestProps {
     write: boolean;
 }
 
+type GenericObject = {
+    [key: string]: string;
+}
+
+export interface PackageJson {
+    dependencies?: GenericObject,
+    devDependencies?: GenericObject,
+    peerDependencies?: GenericObject,
+    buildDependencies?: GenericObject,
+    optionalDependencies?: GenericObject
+}
+
 const processDependencyBlock = async (key: string, packageJson: any, exact: boolean, debug: boolean) => {
     if (debug) {
         console.log(`Processing: ${key}`);
     }
 
-    const currentDepBlock = packageJson[key];
+    const currentDepBlock: GenericObject = packageJson[key];
 
     for (const packageName in currentDepBlock) {
-        const currentPackage = currentDepBlock[packageName]
+        const currentPackage: string = currentDepBlock[packageName];
 
         if (currentPackage === LATEST) {
             if (debug) {
@@ -43,7 +55,7 @@ const processDependencyBlock = async (key: string, packageJson: any, exact: bool
     return packageJson;    
 }
 
-const PinLatest = async ({ targetDirectory, exact, debug, write }: PinLatestProps) => {
+const PinLatest = async ({ targetDirectory, exact, debug, write }: PinLatestProps): Promise<void> => {
     const { stats } = await dirExists(targetDirectory);
 
     if (!stats) {
