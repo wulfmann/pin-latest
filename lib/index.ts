@@ -76,7 +76,7 @@ async function run() {
         targetDirectory,
         exact,
         debug,
-        write
+        write,
     });
 }
 

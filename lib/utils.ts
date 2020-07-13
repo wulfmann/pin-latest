@@ -7,16 +7,20 @@ export const fileExists = async (path: string): Promise<boolean> => {
     } catch {
         return false;
     }
-}
+};
 
-export const dirExists = async (path: string): Promise<{ stats: null|Stats }> => {
+export const dirExists = async (
+    path: string
+): Promise<{ stats: null | Stats }> => {
     try {
         const stats = await fs.stat(path);
         return { stats };
     } catch (e) {
-        if (e !== 'ENOENT') { throw e; }
-        return {
-            stats: null
+        if (e !== 'ENOENT') {
+            throw e;
         }
+        return {
+            stats: null,
+        };
     }
-}
+};

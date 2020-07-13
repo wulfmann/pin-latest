@@ -15,17 +15,22 @@ export interface PinLatestProps {
 
 type GenericObject = {
     [key: string]: string;
-}
+};
 
 export interface PackageJson {
-    dependencies?: GenericObject,
-    devDependencies?: GenericObject,
-    peerDependencies?: GenericObject,
-    buildDependencies?: GenericObject,
-    optionalDependencies?: GenericObject
+    dependencies?: GenericObject;
+    devDependencies?: GenericObject;
+    peerDependencies?: GenericObject;
+    buildDependencies?: GenericObject;
+    optionalDependencies?: GenericObject;
 }
 
-const processDependencyBlock = async (key: string, packageJson: any, exact: boolean, debug: boolean) => {
+const processDependencyBlock = async (
+    key: string,
+    packageJson: any,
+    exact: boolean,
+    debug: boolean
+) => {
     if (debug) {
         console.log(`Processing: ${key}`);
     }
@@ -46,23 +51,30 @@ const processDependencyBlock = async (key: string, packageJson: any, exact: bool
 
                 packageJson[key][packageName] = versionToWrite;
             } catch {
-                console.error(`Failed to fetch package info for: ${packageName}`);
+                console.error(
+                    `Failed to fetch package info for: ${packageName}`
+                );
                 continue;
             }
         }
     }
 
-    return packageJson;    
-}
+    return packageJson;
+};
 
-const PinLatest = async ({ targetDirectory, exact, debug, write }: PinLatestProps): Promise<void> => {
+const PinLatest = async ({
+    targetDirectory,
+    exact,
+    debug,
+    write,
+}: PinLatestProps): Promise<void> => {
     const { stats } = await dirExists(targetDirectory);
 
     if (!stats) {
         throw new Error(`${targetDirectory} does not exist`);
     }
 
-    if (!(stats.isDirectory())) {
+    if (!stats.isDirectory()) {
         throw new Error(`${targetDirectory} is not a directory`);
     }
 
@@ -75,16 +87,24 @@ const PinLatest = async ({ targetDirectory, exact, debug, write }: PinLatestProp
     const packageJson = require(packageJsonFile);
     const original = packageJson;
 
-    const dependencyKeys = ['dependencies', 'peerDependencies', 'devDependencies', 'bundledDependencies', 'optionalDependencies'];
+    const dependencyKeys = [
+        'dependencies',
+        'peerDependencies',
+        'devDependencies',
+        'bundledDependencies',
+        'optionalDependencies',
+    ];
 
     await Promise.all(
         dependencyKeys
-            .filter(key => packageJson[key])
-            .map(key => processDependencyBlock(key, packageJson, exact, debug))
+            .filter((key) => packageJson[key])
+            .map((key) =>
+                processDependencyBlock(key, packageJson, exact, debug)
+            )
     );
 
     const hasChanges = original === packageJson;
-    
+
     if (!hasChanges) {
         console.log('No changes.');
         process.exit(0);
