@@ -1,7 +1,12 @@
 {
   "name": "pin-latest",
-  "version": "0.1.2",
-  "description": "Pin Latest",
+  "version": "0.1.5",
+  "description": "Easily resolve 'latest' package versions",
+  "tags": [
+    "version-management",
+    "pin-version",
+    "latest"
+  ],
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "repository": "git@github.com:wulfmann/pin-latest.git",
@@ -9,23 +14,26 @@
   "license": "MIT",
   "private": false,
   "bin": {
-    "pin-latest": "./lib/index.js"
+    "pin-latest": "./dist/index.js"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^3.6.0",
     "@typescript-eslint/parser": "^3.6.0",
     "eslint": "^7.4.0",
     "prettier": "^2.0.5",
+    "rimraf": "^3.0.2",
     "typescript": "^3.9.6"
   },
   "scripts": {
-    "dev": "tsc -w",
-    "build": "tsc",
+    "dev": "ncc build ./lib/index.ts -w -o dist/",
+    "build": "ncc build ./lib/index.ts -o ./dist/ --minify --no-cache --no-source-map-register",
+    "prerelease": "rimraf ./dist/",
     "format": "prettier 'lib/**/*.ts' --write",
-    "lint": "eslint ./lib --ext .ts"
+    "lint": "eslint ./lib --ext .ts",
+    "deploy": "yarn build && yarn publish"
   },
   "files": [
-    "lib"
+    "dist"
   ],
   "prettier": {
     "trailingComma": "es5",
@@ -46,6 +54,8 @@
     ]
   },
   "dependencies": {
+    "@types/rimraf": "^3.0.0",
+    "@zeit/ncc": "^0.22.3",
     "arg": "^4.1.3",
     "package-json": "^6.5.0",
     "update-check": "^1.5.4"
